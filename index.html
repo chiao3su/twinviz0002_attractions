@@ -22,11 +22,11 @@
     /* 手機版：水平捲動 + 固定名稱欄 */
     @media (max-width: 768px) {
       .heatmap-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .heatmap-table { width: max-content; min-width: 800px; }
-      .col-rank { width: 24px; position: sticky; left: 0; z-index: 2; }
-      .col-name { width: 100px; position: sticky; left: 24px; z-index: 2; }
-      .col-month { width: 50px; }
-      .col-total { width: 55px; }
+      .heatmap-table { width: max-content; min-width: 750px; }
+      .col-rank { width: 20px; position: sticky; left: 0; z-index: 2; }
+      .col-name { width: 75px; position: sticky; left: 20px; z-index: 2; }
+      .col-month { width: 48px; }
+      .col-total { width: 52px; }
       thead .col-rank, thead .col-name { background: #f9fafb; }
       tbody .col-rank, tbody .col-name { background: #fff; }
       tr:hover .col-rank, tr:hover .col-name { background: #f9fafb; }
@@ -34,8 +34,8 @@
         content: '';
         position: absolute;
         top: 0; right: 0; bottom: 0;
-        width: 4px;
-        background: linear-gradient(to right, rgba(0,0,0,0.08), transparent);
+        width: 3px;
+        background: linear-gradient(to right, rgba(0,0,0,0.06), transparent);
       }
     }
     
