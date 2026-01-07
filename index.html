@@ -22,11 +22,11 @@
     /* 手機版：水平捲動 + 固定名稱欄 */
     @media (max-width: 768px) {
       .heatmap-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .heatmap-table { width: max-content; min-width: 750px; }
-      .col-rank { width: 20px; position: sticky; left: 0; z-index: 2; }
-      .col-name { width: 75px; position: sticky; left: 20px; z-index: 2; }
-      .col-month { width: 48px; }
-      .col-total { width: 52px; }
+      .heatmap-table { width: max-content; min-width: 720px; }
+      .col-rank { width: 18px; position: sticky; left: 0; z-index: 2; }
+      .col-name { width: 68px; position: sticky; left: 18px; z-index: 2; }
+      .col-month { width: 46px; }
+      .col-total { width: 50px; }
       thead .col-rank, thead .col-name { background: #f9fafb; }
       tbody .col-rank, tbody .col-name { background: #fff; }
       tr:hover .col-rank, tr:hover .col-name { background: #f9fafb; }
@@ -105,6 +105,12 @@ function ScenicHeatmap() {
       if (spots.includes(spot)) return district;
     }
     return '其他';
+  };
+
+  // 截斷名稱函數
+  const truncateName = (name, maxLen = 8) => {
+    if (!isMobile) return name;
+    return name.length > maxLen ? name.slice(0, maxLen) + '...' : name;
   };
 
   const processedData = useMemo(() => {
@@ -240,7 +246,7 @@ function ScenicHeatmap() {
                         <span className="w-2 h-2 rounded-full flex-shrink-0"
                           style={{ backgroundColor: DISTRICT_COLORS[item.district] || '#999' }} />
                       )}
-                      <span className="text-xs font-medium truncate" title={item.spot}>{item.spot}</span>
+                      <span className="text-xs font-medium" title={item.spot}>{truncateName(item.spot)}</span>
                     </div>
                   </td>
                   {item.values.map((val, mIdx) => {
