@@ -22,20 +22,38 @@
     /* 手機版：水平捲動 + 固定名稱欄 */
     @media (max-width: 768px) {
       .heatmap-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .heatmap-table { width: max-content; min-width: 720px; }
-      .col-rank { width: 18px; position: sticky; left: 0; z-index: 2; }
-      .col-name { width: 68px; position: sticky; left: 18px; z-index: 2; }
-      .col-month { width: 46px; }
-      .col-total { width: 50px; }
-      thead .col-rank, thead .col-name { background: #f9fafb; }
-      tbody .col-rank, tbody .col-name { background: #fff; }
-      tr:hover .col-rank, tr:hover .col-name { background: #f9fafb; }
+      .heatmap-table { width: max-content; min-width: 700px; table-layout: fixed; }
+      .col-rank { 
+        width: 16px; 
+        min-width: 16px;
+        max-width: 16px;
+        position: sticky; 
+        left: 0; 
+        z-index: 10;
+        background: #fff;
+      }
+      .col-name { 
+        width: 54px; 
+        min-width: 54px;
+        max-width: 54px;
+        position: sticky; 
+        left: 16px; 
+        z-index: 10;
+        background: #fff;
+      }
+      thead .col-rank, thead .col-name { background: #f9fafb !important; }
+      tbody tr:hover .col-rank, tbody tr:hover .col-name { background: #f9fafb !important; }
+      .col-month { width: 46px; min-width: 46px; }
+      .col-total { width: 50px; min-width: 50px; }
+      
+      /* 陰影分隔線 */
       .col-name::after {
         content: '';
         position: absolute;
-        top: 0; right: 0; bottom: 0;
-        width: 3px;
-        background: linear-gradient(to right, rgba(0,0,0,0.06), transparent);
+        top: 0; right: -4px; bottom: 0;
+        width: 4px;
+        background: linear-gradient(to right, rgba(0,0,0,0.1), transparent);
+        pointer-events: none;
       }
     }
     
@@ -107,8 +125,8 @@ function ScenicHeatmap() {
     return '其他';
   };
 
-  // 截斷名稱函數
-  const truncateName = (name, maxLen = 8) => {
+  // 截斷名稱函數 - 手機版只顯示5個字
+  const truncateName = (name, maxLen = 5) => {
     if (!isMobile) return name;
     return name.length > maxLen ? name.slice(0, maxLen) + '...' : name;
   };
@@ -241,9 +259,9 @@ function ScenicHeatmap() {
                 <tr key={item.spot} className="border-b border-gray-100 hover:bg-gray-50">
                   <td className="col-rank py-1 text-center text-gray-400 text-xs">{idx + 1}</td>
                   <td className="col-name py-1 pl-1 relative">
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-0.5">
                       {!groupByDistrict && (
-                        <span className="w-2 h-2 rounded-full flex-shrink-0"
+                        <span className="w-1.5 h-1.5 rounded-full flex-shrink-0"
                           style={{ backgroundColor: DISTRICT_COLORS[item.district] || '#999' }} />
                       )}
                       <span className="text-xs font-medium" title={item.spot}>{truncateName(item.spot)}</span>
